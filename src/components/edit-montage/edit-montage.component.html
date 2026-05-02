@@ -1,0 +1,208 @@
+<app-toast-message
+  *ngIf="showToast"
+  [message]="toastMessage"
+  [type]="toastType"
+  [duration]="3000"
+  (closed)="showToast = false"
+/>
+
+
+
+<div class="fixed inset-0 flex items-center justify-center z-50 bg-black/30">
+  <form
+    [formGroup]="editForm"
+    (ngSubmit)="onSubmit()"
+    dir="rtl"
+    class="bg-[#f3dfc4] text-[#372113] rounded-2xl shadow-lg p-4 space-y-6 w-full max-w-3xl mx-auto my-10 font-sans overflow-y-auto max-h-screen"
+  >
+    <div
+      (click)="closeModal()"
+      class="text-[#3b2415] text-2xl font-bold hover:text-red-600 cursor-pointer mr-2"
+    >
+      &times;
+    </div>
+    <h2 class="text-2xl font-extrabold mb-4 text-center">تعديل منتج</h2>
+
+    <!-- اسم المنتج -->
+    <div>
+      <label class="block text-base mb-1 text-[#5a3925]">اسم المنتج</label>
+      <input
+        type="text"
+        formControlName="title"
+        class="w-full p-2 border border-[#a15d36] rounded focus:outline-none focus:ring-2 focus:ring-[#a15d36] placeholder:text-[#8c6d50] text-[#372113] bg-[#f7e5c9]"
+        placeholder="مثال: وافل بالشوكولاتة"
+      />
+    </div>
+    <!-- سعر المنتج -->
+    <div>
+      <label class="block mb-1 text-base text-[#5a3925]">السعر</label>
+      <input
+        type="number"
+        formControlName="price"
+        class="w-full p-2 border border-[#a15d36] rounded focus:outline-none focus:ring-2 focus:ring-[#a15d36] placeholder:text-[#8c6d50] text-[#372113] bg-[#f7e5c9]"
+        placeholder="مثال: 70"
+      />
+    </div>
+
+    <!-- صورة المنتج -->
+    <div>
+      <label class="block mb-1 text-base text-[#5a3925]">صورة المنتج</label>
+      <input
+        type="file"
+        (change)="onFileSelected($event)"
+        class="w-full p-2 border border-[#a15d36] rounded cursor-pointer bg-[#f7e5c9] text-[#372113]"
+      />
+    </div>
+
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl w-full mx-auto mb-6"
+    >
+      <!-- سويتش نوعين شوكولاتة -->
+      <div
+        class="flex items-center justify-between bg-[#fbe8d0] p-2 rounded-xl shadow-md"
+      >
+        <span class="text-[#372113] font-semibold text-sm sm:text-base">
+          يسمح باختيار نوعين شوكولاتة
+        </span>
+        <label class="relative inline-block w-12 h-6 cursor-pointer">
+          <input
+            type="checkbox"
+            formControlName="TwoKindsOfChocolate"
+            class="sr-only peer"
+          />
+          <div
+            class="w-full h-full bg-gray-500 rounded-full peer-checked:bg-[#5a3925] transition-colors duration-300"
+          ></div>
+          <div
+            class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-6"
+          ></div>
+        </label>
+      </div>
+
+      <!-- سويتش أربع أنواع شوكولاتة -->
+      <div
+        class="flex items-center justify-between bg-[#fbe8d0] p-2 rounded-xl shadow-md"
+      >
+        <span class="text-[#372113] font-semibold text-sm sm:text-base">
+          يسمح باختيار أربع أنواع شوكولاتة
+        </span>
+        <label class="relative inline-block w-12 h-6 cursor-pointer">
+          <input
+            type="checkbox"
+            formControlName="FourTypesOfChocolate"
+            class="sr-only peer"
+          />
+          <div
+            class="w-full h-full bg-gray-500 rounded-full peer-checked:bg-[#5a3925] transition-colors duration-300"
+          ></div>
+          <div
+            class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-6"
+          ></div>
+        </label>
+      </div>
+    </div>
+
+    <div>
+      <!-- اختيار الشوكولاتة مع السعر للمنتج -->
+      <div class="space-y-6 max-w-2xl w-full mx-auto">
+        <h3 class="text-[#5a3925] text-lg font-bold mb-2 text-center">
+          اختر الشوكولاتة وأضف السعر:
+        </h3>
+
+        <div
+          *ngFor="let chocolate of chocolates"
+          class="flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-2 bg-[#f7e5c9] p-4 rounded-xl shadow"
+        >
+          <div class="flex items-center gap-2">
+            <input
+              [checked]="isChocolateSelected(chocolate._id)"
+              #chocolateCheckbox
+              (change)="
+                onChocolateChange(
+                  chocolate,
+                  chocolateCheckbox.checked,
+                  Number(chocolatePriceInput.value)
+                )
+              "
+              type="checkbox"
+              class="accent-[#a15d36] w-5 h-5"
+            />
+            <label class="text-[#372113] font-medium">{{
+              chocolate.name
+            }}</label>
+          </div>
+          <input
+            type="number"
+            class="w-full sm:w-24 p-1 border rounded border-[#a15d36] bg-[#fff9f3] text-[#372113]"
+            placeholder="السعر"
+            #chocolatePriceInput
+            [value]="getChocolatePrice(chocolate._id)"
+            (change)="
+              onChocolateChange(
+                chocolate,
+                chocolateCheckbox.checked,
+                Number(chocolatePriceInput.value)
+              )
+            "
+          />
+        </div>
+      </div>
+
+      <div class="space-y-6 max-w-2xl w-full mx-auto mt-4">
+        <h3 class="text-[#5a3925] text-lg font-bold mb-2 text-center">
+          اختر الاضافه وأضف السعر:
+        </h3>
+
+        <div
+          *ngFor="let addOn of addOns"
+          class="flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-2 bg-[#f7e5c9] p-4 rounded-xl shadow"
+        >
+          <div class="flex items-center gap-2">
+            <input
+              [checked]="isAddOnSelected(addOn._id)"
+              #addOnCheckbox
+              (change)="
+                onAddOnChange(
+                  addOn,
+                  addOnCheckbox.checked,
+                  Number(addOnPriceInput.value)
+                )
+              "
+              type="checkbox"
+              class="accent-[#a15d36] w-5 h-5"
+            />
+            <label class="text-[#372113] font-medium">{{ addOn.name }}</label>
+          </div>
+          <input
+            #addOnPriceInput
+            [value]="getAddOnPrice(addOn._id)"
+            (change)="
+              onAddOnChange(
+                addOn,
+                addOnCheckbox.checked,
+                Number(addOnPriceInput.value)
+              )
+            "
+            type="number"
+            class="w-full sm:w-24 p-1 border rounded border-[#a15d36] bg-[#fff9f3] text-[#372113]"
+            placeholder="السعر"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- زر الحفظ -->
+    <div class="text-center pt-4">
+      <button
+        class="bg-[#a15d36] text-white w-full h-10 rounded-full hover:opacity-90 transition"
+      >
+        <ng-container *ngIf="!isLoding">حفظ المنتج</ng-container>
+        <ng-container *ngIf="isLoding">
+          <span
+            class="inline-block h-5 w-5 border-2 border-[#f3dfc4] border-t-transparent rounded-full animate-spin"
+          ></span>
+        </ng-container>
+      </button>
+    </div>
+  </form>
+</div>

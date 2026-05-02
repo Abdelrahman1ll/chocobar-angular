@@ -1,0 +1,16 @@
+{
+  "users": [
+    { "_id": "u1", "name": "أحمد محمد", "phone": "01012345678", "isAdmin": false, "tokenVersion": 1, "createdAt": "2026-05-01T12:00:00Z", "updatedAt": "2026-05-01T12:00:00Z", "__v": 0 },
+    { "_id": "u2", "name": "سارة علي", "phone": "01122334455", "isAdmin": false, "tokenVersion": 1, "createdAt": "2026-05-01T13:00:00Z", "updatedAt": "2026-05-01T13:00:00Z", "__v": 0 },
+    { "_id": "u3", "name": "محمود إبراهيم", "phone": "01234567890", "isAdmin": false, "tokenVersion": 1, "createdAt": "2026-05-01T14:00:00Z", "updatedAt": "2026-05-01T14:00:00Z", "__v": 0 },
+    { "_id": "u4", "name": "ليلى حسن", "phone": "01511223344", "isAdmin": false, "tokenVersion": 1, "createdAt": "2026-05-02T09:00:00Z", "updatedAt": "2026-05-02T09:00:00Z", "__v": 0 },
+    { "_id": "u5", "name": "ياسين كريم", "phone": "01099887766", "isAdmin": false, "tokenVersion": 1, "createdAt": "2026-05-02T10:00:00Z", "updatedAt": "2026-05-02T10:00:00Z", "__v": 0 },
+    { "_id": "u6", "name": "منى زكي", "phone": "01122336677", "isAdmin": false, "tokenVersion": 1, "createdAt": "2026-05-02T11:00:00Z", "updatedAt": "2026-05-02T11:00:00Z", "__v": 0 },
+    { "_id": "u7", "name": "خالد وليد", "phone": "01244556677", "isAdmin": false, "tokenVersion": 1, "createdAt": "2026-05-02T12:00:00Z", "updatedAt": "2026-05-02T12:00:00Z", "__v": 0 },
+    { "_id": "u8", "name": "نادية فوزي", "phone": "01555667788", "isAdmin": false, "tokenVersion": 1, "createdAt": "2026-05-02T13:00:00Z", "updatedAt": "2026-05-02T13:00:00Z", "__v": 0 },
+    { "_id": "u9", "name": "عمرو دياب", "phone": "01000000001", "isAdmin": false, "tokenVersion": 1, "createdAt": "2026-05-02T14:00:00Z", "updatedAt": "2026-05-02T14:00:00Z", "__v": 0 },
+    { "_id": "u10", "name": "هاني شاكر", "phone": "01111111112", "isAdmin": false, "tokenVersion": 1, "createdAt": "2026-05-03T07:00:00Z", "updatedAt": "2026-05-03T07:00:00Z", "__v": 0 },
+    { "_id": "u11", "name": "أنغام محمد", "phone": "01222222223", "isAdmin": false, "tokenVersion": 1, "createdAt": "2026-05-03T08:00:00Z", "updatedAt": "2026-05-03T08:00:00Z", "__v": 0 },
+    { "_id": "u12", "name": "تامر حسني", "phone": "01533333334", "isAdmin": false, "tokenVersion": 1, "createdAt": "2026-05-03T09:00:00Z", "updatedAt": "2026-05-03T09:00:00Z", "__v": 0 }
+  ]
+}

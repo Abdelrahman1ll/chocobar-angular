@@ -1,0 +1,81 @@
+<app-header></app-header>
+<app-back></app-back>
+
+<app-edit-montage
+  *ngIf="editMontage"
+  (close)="editMontage = false"
+  [montageId]="selectedMontageId"
+></app-edit-montage>
+
+<app-product-customization
+  *ngIf="customization"
+  (close)="customization = false"
+  [montageId]="selectedMontageId"
+></app-product-customization>
+
+<div>
+  <h1 class="text-3xl font-bold text-center mt-10 mb-6 text-[#4b2e19]">
+    منتجاتنا
+  </h1>
+  <p class="text-center text-lg text-[#a15d36] mb-10">
+    استمتع بتجربة تسوق فريدة مع تشكيلتنا المتنوعة من المنتجات.
+  </p>
+</div>
+
+<div *ngIf="isLoading" class="flex justify-center items-center min-h-screen">
+  <div
+    class="w-16 h-16 border-4 border-[#a15d36] border-t-transparent rounded-full animate-spin"
+  ></div>
+</div>
+
+<div
+  *ngIf="!isLoading && filteredMontages.length === 0"
+  class="text-center py-10 text-[#6b4c3b] text-lg font-medium"
+>
+  لا يوجد منتجات مطابقة لبحثك
+</div>
+
+<div
+  *ngIf="!isLoading"
+  class="mt-10 mb-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4"
+>
+  <div *ngFor="let montage of filteredMontages">
+    <button
+      *ngIf="user?.isAdmin === true"
+      (click)="openEditModal(montage._id)"
+      class="bg-[#a15d36] text-white w-full h-10 rounded-full hover:bg-[#8b4f2f] transition duration-300 mb-1"
+    >
+      تعديل
+    </button>
+
+    <div
+      class="bg-gradient-to-b from-[#fffaf3] to-[#fef1e5] p-4 rounded-3xl shadow-lg hover:shadow-2xl transition duration-300 text-center"
+    >
+      <div class="overflow-hidden rounded-2xl mb-4">
+        <img
+          [src]="montage.image"
+          alt="{{ montage.title }}"
+          class="w-full h-48 object-cover transform hover:scale-105 transition-transform duration-300"
+        />
+      </div>
+
+      <div class="flex justify-between">
+        <p class="text-lg text-[#a15d36] font-semibold mb-4">
+          {{ montage.price }} جنيه
+        </p>
+        <h1 class="text-2xl font-bold text-[#4b2e19] mb-1">
+          {{ montage.title }}
+        </h1>
+      </div>
+      <button
+        (click)="customization = true"
+        (click)="ProductCustomization(montage._id)"
+        class="bg-[#a15d36] text-white flex items-center justify-center gap-2 px-5 py-2 rounded-full hover:bg-[#8b4f2f] transition-colors duration-300 mx-auto"
+      >
+        اختر نوع الشوكولاتة
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

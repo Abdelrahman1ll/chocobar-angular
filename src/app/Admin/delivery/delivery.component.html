@@ -1,0 +1,89 @@
+<app-toast-message
+  *ngIf="showToast"
+  [message]="toastMessage"
+  [type]="toastType"
+  [duration]="3000"
+  (closed)="showToast = false"
+/>
+
+<app-header></app-header>
+<app-back></app-back>
+
+<div dir="rtl" class="container mx-auto px-4 py-8">
+  <div class="max-w-md w-full mx-auto">
+    <!-- العنوان -->
+    <h2
+      class="text-2xl sm:text-3xl font-extrabold text-center text-[#372113] mb-6"
+    >
+      إدارة سعر التوصيل
+    </h2>
+
+    <!-- عرض السعر الحالي -->
+    <div class="mb-6">
+      <div *ngIf="isPriceLoading" class="flex justify-center items-center p-8 bg-[#fbe8d0] rounded-xl shadow-md">
+        <span class="h-8 w-8 border-4 border-[#a15d36] border-t-transparent rounded-full animate-spin"></span>
+      </div>
+
+      <div *ngIf="!isPriceLoading">
+        <div
+          *ngFor="let deliveryPrice of currentDeliveryPrice"
+          class="bg-[#fbe8d0] text-[#372113] p-4 rounded-xl shadow-md text-center animate-fadeIn"
+        >
+          <p class="text-base sm:text-lg font-semibold">سعر التوصيل الحالي</p>
+          <p class="text-2xl font-bold mt-2">
+            {{ deliveryPrice.DeliveryPrice }} ج.م
+          </p>
+        </div>
+        
+        <!-- Placeholder if empty -->
+        <div *ngIf="currentDeliveryPrice.length === 0" class="bg-[#fbe8d0] text-[#372113] p-4 rounded-xl shadow-md text-center opacity-60">
+          <p>لا يوجد سعر توصيل محدد حالياً</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- تعديل السعر -->
+    <form
+      [formGroup]="form"
+      (ngSubmit)="updateDeliveryPrice()"
+      class="space-y-4"
+    >
+      <div>
+        <label class="block text-[#5a3925] mb-1 font-medium"
+          >أدخل السعر الجديد للتوصيل</label
+        >
+        <input
+          formControlName="DeliveryPrice"
+          type="number"
+          min="0"
+          class="w-full p-2 rounded border border-[#a15d36] bg-[#f7e5c9] text-[#372113] focus:outline-none focus:ring-2 focus:ring-[#a15d36]"
+          placeholder="سعر التوصيل"
+        />
+        <div
+          *ngIf="
+            form.get('DeliveryPrice')?.invalid &&
+            form.get('DeliveryPrice')?.touched
+          "
+          class="text-red-600 text-sm mt-1"
+        >
+          السعر مطلوب ويجب أن يكون رقمًا صحيحًا
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full h-10 bg-[#a15d36] text-white rounded-full hover:opacity-90 transition"
+        [disabled]="form.invalid || isLoading"
+      >
+        <ng-container *ngIf="!isLoading">تحديث السعر</ng-container>
+        <ng-container *ngIf="isLoading">
+          <span
+            class="inline-block h-5 w-5 border-2 border-[#f3dfc4] border-t-transparent rounded-full animate-spin"
+          ></span>
+        </ng-container>
+      </button>
+    </form>
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,104 @@
+<app-header></app-header>
+
+<app-back></app-back>
+<!-- رسالة لا توجد طلبات -->
+<div
+  *ngIf="!isLoading && orders.length === 0"
+  class="flex justify-center items-center min-h-[50vh]"
+>
+  <p class="text-xl font-bold text-[#a15d36]">لا توجد طلبات حالياً</p>
+</div>
+
+<!-- لودينج سبينر -->
+<div *ngIf="isLoading" class="flex justify-center items-center min-h-screen">
+  <div
+    class="w-16 h-16 border-4 border-[#a15d36] border-t-transparent rounded-full animate-spin"
+  ></div>
+</div>
+<div *ngIf="!isLoading">
+  <div>
+    <h1 class="text-3xl text-center font-extrabold">الطلبات</h1>
+  </div>
+
+  <div
+    *ngFor="let order of orders"
+    dir="rtl"
+    class="bg-[#f3dfc4] text-[#372113] rounded-2xl shadow-lg p-6 space-y-8 w-full max-w-3xl mx-auto font-sans my-10"
+  >
+    <!-- التاريخ ورقم الطلب -->
+    <div
+      class="flex justify-between items-center text-sm font-medium border-b border-[#d8b293] pb-4"
+    >
+      <p>
+        <span class="font-semibold">تاريخ الطلب: </span
+        >{{ formatDate(order?.createdAt || "") }}
+      </p>
+      <p>
+        <span class="font-semibold">رقم الطلب:</span>{{ order?.orderNumber }}
+      </p>
+    </div>
+
+    <!-- عنوان الشحن وبيانات المستخدم -->
+    <div class="flex flex-col sm:flex-row justify-between gap-8">
+      <!-- تفاصيل الشحن -->
+      <div class="flex-1 space-y-2">
+        <h2 class="text-xl font-extrabold mb-2">تفاصيل الشحن</h2>
+        <p><span class="font-semibold">الاسم:</span>{{ order?.name }}</p>
+        <p><span class="font-semibold">رقم الهاتف:</span> {{ order?.phone }}</p>
+        <p><span class="font-semibold">العنوان:</span>{{ order?.address }}</p>
+      </div>
+
+      <!-- بيانات المستخدم -->
+      <div class="flex-1 space-y-2">
+        <h2 class="text-xl font-extrabold mb-2">بيانات المستخدم</h2>
+        <p>
+          <span class="font-semibold">اسم المستخدم:</span
+          >{{ order?.user?.name }}
+        </p>
+        <p>
+          <span class="font-semibold">رقم الهاتف:</span>{{ order?.user?.phone }}
+        </p>
+      </div>
+    </div>
+
+    <!-- المنتجات -->
+    <h2 class="text-xl font-extrabold mb-3">المنتجات</h2>
+
+    <app-projects
+      *ngFor="let item of order?.basket"
+      [item]="item"
+    ></app-projects>
+
+    <!-- ملخص -->
+    <div
+      class="flex sm:flex-row justify-between items-start sm:items-center border-t border-[#d8b293] pt-6 mt-6 text-sm font-medium"
+    >
+      <div>
+        <p class="text-sm font-semibold mb-3">
+          <span>سعر التوصيل:</span>
+          <span class="text-[#a15d36] font-bold"
+            >{{ order?.deliveryPrice || 0 }}.00 جنيه</span
+          >
+        </p>
+        <p class="text-base font-semibold">
+          <span>الإجمالي:</span>
+          <span class="text-[#a15d36] font-bold"
+            >{{ order?.totalPrice }}.00 جنيه</span
+          >
+        </p>
+      </div>
+      <p class="text-sm font-semibold sm:mt-0 mt-2">
+        <span>حالة الدفع:</span>
+        <span
+          class="inline-block px-2 py-1 rounded-full text-white ml-2"
+          [class.bg-green-600]="order?.isPaid"
+          [class.bg-red-600]="!order?.isPaid"
+        >
+          {{ order?.isPaid ? "مدفوع" : "غير مدفوع" }}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

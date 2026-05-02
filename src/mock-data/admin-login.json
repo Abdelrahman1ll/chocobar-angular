@@ -1,0 +1,11 @@
+{
+  "accessToken": "mock-admin-access-token",
+  "refreshToken": "mock-admin-refresh-token",
+  "user": {
+    "_id": "admin-1",
+    "name": "Super Admin",
+    "isAdmin": true,
+    "role": "admin",
+    "phone": "01000000000"
+  }
+}

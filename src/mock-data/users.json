@@ -1,0 +1,10 @@
+{
+  "user": {
+    "_id": "admin-1",
+    "name": "Super Admin",
+    "isAdmin": true,
+    "role": "admin",
+    "phone": "01000000000",
+    "email": "admin@chocobar.com"
+  }
+}

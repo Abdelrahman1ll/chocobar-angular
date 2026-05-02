@@ -1,0 +1,112 @@
+<app-toast-message
+  *ngIf="showToast"
+  [message]="toastMessage"
+  [type]="toastType"
+  [duration]="3000"
+  (closed)="showToast = false"
+/>
+
+<form
+  dir="rtl"
+  [formGroup]="userform"
+  (ngSubmit)="login()"
+  id="loginModal"
+  class="fixed inset-0 flex items-center justify-center z-50"
+>
+  <div
+    class="bg-[#f3dfc4] rounded-2xl shadow-xl p-6 w-[90%] max-w-md space-y-4 relative text-right"
+  >
+    <button
+      (click)="closeModal()"
+      class="absolute top-2 right-4 text-[#3b2415] text-2xl font-bold hover:text-red-600 transition"
+    >
+      &times;
+    </button>
+
+    <h2 class="text-2xl font-bold text-[#3b2415] text-center">تسجيل الدخول</h2>
+
+    <ng-container *ngIf="!showCodeInput">
+      <!-- الاسم -->
+      <input
+        type="text"
+        placeholder="الاسم بالكامل"
+        formControlName="name"
+        class="w-full p-2 rounded outline-none border"
+        [ngClass]="{
+          'border-red-500': submitted && userform.controls['name'].invalid,
+          'border-[#3b2415]': userform.controls['name'].valid
+        }"
+      />
+      <div
+        class="text-red-500 text-sm -mt-1"
+        *ngIf="submitted && userform.controls['name'].invalid"
+      >
+        الاسم مطلوب
+      </div>
+
+      <!-- الهاتف -->
+      <input
+        type="tel"
+        placeholder="رقم الهاتف"
+        formControlName="phone"
+        class="w-full p-2 rounded outline-none border text-right"
+        [ngClass]="{
+          'border-red-500': submitted && userform.controls['phone'].invalid,
+          'border-[#3b2415]': userform.controls['phone'].valid
+        }"
+      />
+      <div
+        class="text-red-500 text-sm -mt-1"
+        *ngIf="submitted && userform.controls['phone'].invalid"
+      >
+        رقم الهاتف مطلوب
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="loadingLogin"
+        class="bg-[#3b2415] text-[#f3dfc4] px-4 py-2 rounded w-full hover:opacity-90 transition flex items-center justify-center"
+      >
+        <ng-container *ngIf="!loadingLogin">تسجيل الدخول</ng-container>
+        <ng-container *ngIf="loadingLogin">
+          <span
+            class="loader h-5 w-5 border-2 border-[#f3dfc4] border-t-transparent rounded-full animate-spin"
+          ></span>
+        </ng-container>
+      </button>
+    </ng-container>
+
+    <!-- كود التحقق -->
+    <ng-container *ngIf="showCodeInput">
+      <input
+        type="text"
+        [formControl]="codeControl"
+        placeholder="أدخل رمز التحقق"
+        class="w-full p-2 rounded outline-none border"
+        [ngClass]="{
+          'border-red-500': submitted && codeControl.invalid,
+          'border-[#3b2415]': codeControl.valid
+        }"
+      />
+      <div
+        class="text-red-500 text-sm -mt-1"
+        *ngIf="submitted && codeControl.invalid"
+      >
+        رمز التحقق مطلوب
+      </div>
+      <button
+        type="button"
+        [disabled]="loadingVerify"
+        (click)="verifyCode()"
+        class="bg-[#3b2415] text-[#f3dfc4] px-4 py-2 rounded w-full mt-2 hover:opacity-90 transition flex items-center justify-center"
+      >
+        <ng-container *ngIf="!loadingVerify">تحقق من الرمز</ng-container>
+        <ng-container *ngIf="loadingVerify">
+          <span
+            class="loader h-5 w-5 border-2 border-[#f3dfc4] border-t-transparent rounded-full animate-spin"
+          ></span>
+        </ng-container>
+      </button>
+    </ng-container>
+  </div>
+</form>

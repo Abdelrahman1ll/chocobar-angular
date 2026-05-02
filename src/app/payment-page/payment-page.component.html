@@ -1,0 +1,136 @@
+<app-header></app-header>
+<app-toast-message *ngIf="showToast" [message]="toastMessage" [type]="toastType" [duration]="3000"
+  (closed)="showToast = false" />
+<app-back></app-back>
+
+<form (ngSubmit)="onSubmit()" #paymentForm="ngForm" dir="rtl"
+  class="bg-[#EFD3A8] min-h-screen text-[#372113] p-6 font-sans">
+  <h2 class="text-3xl font-bold mb-8 text-center">معلومات الدفع</h2>
+
+  <div class="space-y-6 max-w-2xl mx-auto">
+    <!-- اختيار نوع الدفع -->
+    <div>
+      <h3 class="text-2xl font-bold text-[#5b3a29] mb-4">اختر طريقة الدفع:</h3>
+      <div class="flex gap-4">
+        <!-- فيزا -->
+        <label
+          class="relative flex items-center gap-4 bg-[#f3dfc4] text-[#372113] px-5 py-5 rounded-xl text-lg cursor-pointer flex-1 border-2 transition-all"
+          [ngClass]="{
+            'border-[#a15d36] bg-[#e9d4b8]': paymentMethod === 'visa',
+            'border-transparent': paymentMethod !== 'visa'
+          }">
+          <input type="radio" name="payment" [(ngModel)]="paymentMethod" value="visa" class="hidden" />
+          <div class="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center border-2 rounded-full" [ngClass]="{
+              'bg-[#a15d36] border-[#a15d36]': paymentMethod === 'visa',
+              'border-[#a15d36]': paymentMethod !== 'visa'
+            }">
+            <svg *ngIf="paymentMethod === 'visa'" class="w-5 h-5 text-[#f8efe7]" fill="none" stroke="currentColor"
+              stroke-width="3" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <span class="font-semibold"> الدفع بالفيزا</span>
+        </label>
+
+        <!-- كاش -->
+        <label
+          class="relative flex items-center gap-4 bg-[#f3dfc4] text-[#372113] px-5 py-5 rounded-xl text-lg cursor-pointer flex-1 border-2 transition-all"
+          [ngClass]="{
+            'border-[#a15d36] bg-[#e9d4b8]': paymentMethod === 'cash',
+            'border-transparent': paymentMethod !== 'cash'
+          }">
+          <input type="radio" name="payment" [(ngModel)]="paymentMethod" value="cash" class="hidden" />
+          <div class="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center border-2 rounded-full" [ngClass]="{
+              'bg-[#a15d36] border-[#a15d36]': paymentMethod === 'cash',
+              'border-[#a15d36]': paymentMethod !== 'cash'
+            }">
+            <svg *ngIf="paymentMethod === 'cash'" class="w-5 h-5 text-[#f8efe7]" fill="none" stroke="currentColor"
+              stroke-width="3" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <span class="font-semibold"> الدفع كاش</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- بيانات العميل -->
+    <div class="grid grid-cols-1 gap-4">
+
+      <!-- اسم العميل -->
+      <div>
+        <input name="name" type="text" placeholder="اسم العميل" [(ngModel)]="name" [ngClass]="{
+        'border-red-500': showErrors && !name,
+        'border-[#a15d36]': name || !showErrors
+      }" class="p-3 rounded-xl bg-[#f8efe7] border focus:outline-none text-lg placeholder:text-[#a87c5f] w-full" />
+        <p class="text-sm mt-1 min-h-[20px] text-red-500" *ngIf="showErrors && !name">
+          يرجى إدخال اسم العميل
+        </p>
+        <p *ngIf="!(showErrors && !name)" class="min-h-[20px] invisible"><!-- مساحة محجوزة --></p>
+      </div>
+
+      <!-- رقم الموبايل -->
+      <div>
+        <input name="phone" type="phone" placeholder="رقم الموبايل" [(ngModel)]="phone" [ngClass]="{
+        'border-red-500': showErrors && !phone,
+        'border-[#a15d36]': phone || !showErrors
+      }" class="p-3 rounded-xl bg-[#f8efe7] border focus:outline-none text-lg placeholder:text-[#a87c5f] w-full" />
+        <p class="text-sm mt-1 min-h-[20px] text-red-500" *ngIf="showErrors && !phone">
+          يرجى إدخال رقم الموبايل
+        </p>
+        <p *ngIf="!(showErrors && !phone)" class="min-h-[20px] invisible"></p>
+      </div>
+
+      <!-- العنوان بالتفصيل -->
+      <div>
+        <textarea name="address" placeholder="العنوان بالتفصيل" [(ngModel)]="address" [ngClass]="{
+        'border-red-500': showErrors && !address,
+        'border-[#a15d36]': address || !showErrors
+      }"
+          class="p-3 pb-6 rounded-xl bg-[#f8efe7] border focus:outline-none text-lg placeholder:text-[#a87c5f] w-full"></textarea>
+        <p class="text-sm mt-1 min-h-[20px] text-red-500" *ngIf="showErrors && !address">
+          يرجى إدخال العنوان بالتفصيل
+        </p>
+        <p *ngIf="!(showErrors && !address)" class="min-h-[20px] invisible"></p>
+      </div>
+
+    </div>
+
+
+    <!-- ملخص الطلب -->
+    <div class="bg-[#f8efe7] rounded-2xl shadow-md p-6 mt-4 space-y-4">
+      <h3 class="text-3xl font-extrabold text-center text-[#5b3a29] mb-4">
+        تفاصيل الطلب
+      </h3>
+
+      <div class="flex justify-between items-center border-b border-[#d6bfae] pb-3 text-lg text-[#5b3a29]">
+        <span>إجمالي السلة:</span>
+        <span>{{ cartTotal | number : "1.2-2" }} جنيه</span>
+      </div>
+
+      <div class="flex justify-between items-center border-b border-[#d6bfae] pb-3 text-lg text-[#5b3a29]">
+        <span>التوصيل:</span>
+        <span>{{ deliveryPrice | number : "1.2-2" }} جنيه</span>
+      </div>
+
+      <div class="flex justify-between items-center pt-2 text-2xl font-bold text-[#a15d36]">
+        <span>الإجمالي الكلي:</span>
+        <span>{{ totalPrice | number : "1.2-2" }} جنيه</span>
+      </div>
+    </div>
+
+    <!-- زر تأكيد -->
+    <button type="submit" [disabled]="isLoading"
+      class="mt-6 w-full bg-[#a15d36] text-white text-lg py-4 rounded-xl hover:bg-[#8c4d2e] transition font-semibold">
+      <ng-container *ngIf="!isLoading"> تأكيد الطلب</ng-container>
+
+      <ng-container *ngIf="isLoading">
+        <span
+          class="inline-block h-6 w-6 border-4 border-[#f3dfc4] border-t-transparent rounded-full animate-spin"></span>
+      </ng-container>
+
+    </button>
+  </div>
+</form>
+
+<app-footer></app-footer>

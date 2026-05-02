@@ -1,0 +1,91 @@
+{
+  "projects": [
+    {
+      "_id": "67b9de8e17631771192945a0",
+      "title": "مولتن كيك",
+      "image": "https://res.cloudinary.com/dnjilyjr4/image/upload/v1777758764/ChatGPT_Image_Jun_17_2025_11_52_45_PM_zwq0ag.png",
+      "price": 85,
+      "chocolates": [
+        { "_id": "m_c1", "price": 0, "chocolate": { "_id": "c1", "name": "شوكولاتة داكنة" } },
+        { "_id": "m_c2", "price": 0, "chocolate": { "_id": "c2", "name": "شوكولاتة بيضاء" } },
+        { "_id": "m_c3", "price": 0, "chocolate": { "_id": "c3", "name": "شوكولاتة بالبندق" } },
+        { "_id": "m_c4", "price": 0, "chocolate": { "_id": "c4", "name": "شوكولاتة بالكراميل" } },
+        { "_id": "m_c5", "price": 0, "chocolate": { "_id": "c5", "name": "شوكولاتة بالفراولة" } },
+        { "_id": "m_c6", "price": 0, "chocolate": { "_id": "c6", "name": "شوكولاتة بالفستق" } },
+        { "_id": "m_c7", "price": 0, "chocolate": { "_id": "c7", "name": "شوكولاتة بالقهوة" } }
+      ],
+      "addOns": [
+        { "_id": "m_a1", "price": 15, "addOn": { "_id": "ad1", "name": "تغليف هدايا" } },
+        { "_id": "m_a2", "price": 5, "addOn": { "_id": "ad2", "name": "بطاقة معايدة" } },
+        { "_id": "m_a3", "price": 25, "addOn": { "_id": "ad3", "name": "فراولة طازجة" } },
+        { "_id": "m_a4", "price": 20, "addOn": { "_id": "ad4", "name": "بندق محمص" } },
+        { "_id": "m_a5", "price": 20, "addOn": { "_id": "ad5", "name": "لوز" } },
+        { "_id": "m_a6", "price": 20, "addOn": { "_id": "ad6", "name": "جوز" } },
+        { "_id": "m_a7", "price": 10, "addOn": { "_id": "ad7", "name": "رقائق جوز الهند" } }
+      ],
+      "TwoKindsOfChocolate": true,
+      "FourTypesOfChocolate": false,
+      "createdAt": "2026-05-01T12:00:00Z",
+      "updatedAt": "2026-05-01T12:00:00Z",
+      "__v": 0
+    },
+    {
+      "_id": "67b9de8e17631771192945a1",
+      "title": "وافل نوتيلا",
+      "image": "https://res.cloudinary.com/dnjilyjr4/image/upload/v1777758764/Gemini_Generated_Image_545wdo545wdo545w_rofi6r.jpg",
+      "price": 120,
+      "chocolates": [
+        { "_id": "m_c1", "price": 0, "chocolate": { "_id": "c1", "name": "شوكولاتة داكنة" } },
+        { "_id": "m_c2", "price": 0, "chocolate": { "_id": "c2", "name": "شوكولاتة بيضاء" } },
+        { "_id": "m_c3", "price": 0, "chocolate": { "_id": "c3", "name": "شوكولاتة بالبندق" } },
+        { "_id": "m_c4", "price": 0, "chocolate": { "_id": "c4", "name": "شوكولاتة بالكراميل" } },
+        { "_id": "m_c5", "price": 0, "chocolate": { "_id": "c5", "name": "شوكولاتة بالفراولة" } },
+        { "_id": "m_c6", "price": 0, "chocolate": { "_id": "c6", "name": "شوكولاتة بالفستق" } },
+        { "_id": "m_c7", "price": 0, "chocolate": { "_id": "c7", "name": "شوكولاتة بالقهوة" } }
+      ],
+      "addOns": [
+        { "_id": "m_a1", "price": 15, "addOn": { "_id": "ad1", "name": "تغليف هدايا" } },
+        { "_id": "m_a2", "price": 5, "addOn": { "_id": "ad2", "name": "بطاقة معايدة" } },
+        { "_id": "m_a3", "price": 25, "addOn": { "_id": "ad3", "name": "فراولة طازجة" } },
+        { "_id": "m_a4", "price": 20, "addOn": { "_id": "ad4", "name": "بندق محمص" } },
+        { "_id": "m_a5", "price": 20, "addOn": { "_id": "ad5", "name": "لوز" } },
+        { "_id": "m_a6", "price": 20, "addOn": { "_id": "ad6", "name": "جوز" } },
+        { "_id": "m_a7", "price": 10, "addOn": { "_id": "ad7", "name": "رقائق جوز الهند" } }
+      ],
+      "TwoKindsOfChocolate": true,
+      "FourTypesOfChocolate": true,
+      "createdAt": "2026-05-02T10:00:00Z",
+      "updatedAt": "2026-05-02T10:00:00Z",
+      "__v": 0
+    },
+    {
+      "_id": "67b9de8e17631771192945a2",
+      "title": "طاجن نوتيلا",
+      "image": "https://res.cloudinary.com/dnjilyjr4/image/upload/v1777758756/ChatGPT_Image_Jun_18_2025_12_14_29_AM_h3vo4e.png",
+      "price": 100,
+      "chocolates": [
+        { "_id": "m_c1", "price": 0, "chocolate": { "_id": "c1", "name": "شوكولاتة داكنة" } },
+        { "_id": "m_c2", "price": 0, "chocolate": { "_id": "c2", "name": "شوكولاتة بيضاء" } },
+        { "_id": "m_c3", "price": 0, "chocolate": { "_id": "c3", "name": "شوكولاتة بالبندق" } },
+        { "_id": "m_c4", "price": 0, "chocolate": { "_id": "c4", "name": "شوكولاتة بالكراميل" } },
+        { "_id": "m_c5", "price": 0, "chocolate": { "_id": "c5", "name": "شوكولاتة بالفراولة" } },
+        { "_id": "m_c6", "price": 0, "chocolate": { "_id": "c6", "name": "شوكولاتة بالفستق" } },
+        { "_id": "m_c7", "price": 0, "chocolate": { "_id": "c7", "name": "شوكولاتة بالقهوة" } }
+      ],
+      "addOns": [
+        { "_id": "m_a1", "price": 15, "addOn": { "_id": "ad1", "name": "تغليف هدايا" } },
+        { "_id": "m_a2", "price": 5, "addOn": { "_id": "ad2", "name": "بطاقة معايدة" } },
+        { "_id": "m_a3", "price": 25, "addOn": { "_id": "ad3", "name": "فراولة طازجة" } },
+        { "_id": "m_a4", "price": 20, "addOn": { "_id": "ad4", "name": "بندق محمص" } },
+        { "_id": "m_a5", "price": 20, "addOn": { "_id": "ad5", "name": "لوز" } },
+        { "_id": "m_a6", "price": 20, "addOn": { "_id": "ad6", "name": "جوز" } },
+        { "_id": "m_a7", "price": 10, "addOn": { "_id": "ad7", "name": "رقائق جوز الهند" } }
+      ],
+      "TwoKindsOfChocolate": true,
+      "FourTypesOfChocolate": false,
+      "createdAt": "2026-05-03T08:00:00Z",
+      "updatedAt": "2026-05-03T08:00:00Z",
+      "__v": 0
+    }
+  ]
+}

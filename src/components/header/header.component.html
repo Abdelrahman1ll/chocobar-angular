@@ -1,0 +1,308 @@
+<div
+  class="flex bg-[#372113] w-full h-20 text-[#f7e9d3] items-center justify-around px-4"
+>
+  <!-- يسار الهيدر: المستخدم والعربة -->
+  <div class="items-center gap-6 lg:gap-10 hidden min-[950px]:flex">
+    <div>
+      <!-- مستخدم مسجل -->
+      <div *ngIf="user; else userIcon" class="relative" dir="rtl">
+        <!-- دائرة المستخدم -->
+
+        <div>
+          <div
+            (click)="toggleDropdown()"
+            class="w-10 h-10 rounded-full bg-[#a15d36] text-white flex items-center justify-center text-lg font-bold shadow-lg cursor-pointer relative"
+          >
+            {{ user?.name?.charAt(0) || "?" }}
+          </div>
+
+          <div *ngIf="user?.isAdmin">
+            <app-orders-notifier></app-orders-notifier>
+          </div>
+        </div>
+        <!-- القائمة المنسدلة -->
+        <div
+          *ngIf="dropdownOpen"
+          class="absolute z-50 mt-2 -right-36 w-46 max-w-[90vw] bg-[#f3dfc4] rounded-2xl shadow-2xl p-2 border border-[#d9b99b]"
+        >
+          <!-- بيانات المستخدم -->
+          <div
+            class="flex items-center gap-3 border-b border-[#d8b293] pb-4 mb-3"
+          >
+            <div
+              class="w-11 h-11 rounded-full bg-[#372113] text-[#f3dfc4] flex items-center justify-center text-lg font-bold shadow-md"
+            >
+              {{ user?.name?.charAt(0) || "?" }}
+            </div>
+            <div>
+              <div class="font-semibold text-[#372113] text-base">
+                {{ user?.name || "مستخدم" }}
+              </div>
+              <div class="text-sm text-[#6b4c3b]">{{ user?.phone || "" }}</div>
+            </div>
+          </div>
+
+          <!-- روابط المدير -->
+          <div
+            *ngIf="user?.isAdmin; else logoutOnly"
+            class="space-y-2 text-[15px] font-medium leading-6 mb-4"
+          >
+            <button
+              [routerLink]="['/all-orders']"
+              class="w-full bg-[#372113] text-[#f3dfc4] py-2 rounded-full hover:bg-[#8b4f2f] transition"
+            >
+              الطلبات
+            </button>
+            <button
+              [routerLink]="['/clients']"
+              class="w-full bg-[#372113] text-[#f3dfc4] py-2 rounded-full hover:bg-[#8b4f2f] transition"
+            >
+              العملاء
+            </button>
+            <button
+              [routerLink]="['/add-montage']"
+              class="w-full bg-[#372113] text-[#f3dfc4] py-2 rounded-full hover:bg-[#8b4f2f] transition"
+            >
+              إضافة منتج جديد
+            </button>
+            <button
+              [routerLink]="['/delivery']"
+              class="w-full bg-[#372113] text-[#f3dfc4] py-2 rounded-full hover:bg-[#8b4f2f] transition"
+            >
+              تغيير سعر الدليفري
+            </button>
+
+            <button
+              [routerLink]="['/order-statistics']"
+              class="w-full bg-[#372113] text-[#f3dfc4] py-2 rounded-full hover:bg-[#8b4f2f] transition"
+            >
+              تقارير الطلبات
+            </button>
+          </div>
+
+          <!-- تسجيل الخروج فقط للمستخدم العادي -->
+          <ng-template #logoutOnly>
+            <div class="space-y-2 text-[15px] font-medium leading-6"></div>
+          </ng-template>
+
+          <!-- زر تسجيل الخروج للجميع -->
+          <div class=" ">
+            <button
+              (click)="logout()"
+              class="w-full bg-[#d8b293] text-red-500 py-2 rounded-full hover:bg-[#a15d36] transition font-semibold cursor-pointer"
+            >
+              تسجيل الخروج
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- مستخدم غير مسجل -->
+      <ng-template #userIcon>
+        <i
+          class="fas fa-user text-2xl cursor-pointer hover:opacity-90 transition"
+          (click)="showLogin = true"
+        ></i>
+      </ng-template>
+    </div>
+
+    <!-- أيقونة العربة -->
+    <div class="relative inline-block" [routerLink]="['/basket']">
+      <i class="fas fa-shopping-cart text-2xl cursor-pointer"></i>
+      <span
+        class="absolute -top-2 -right-2 bg-[#a15d36] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full cursor-pointer"
+      >
+        {{ basketCount }}
+      </span>
+    </div>
+  </div>
+
+  <!-- روابط المنتصف -->
+  <div class="flex space-x-6 lg:space-x-10 text-lg">
+    <p
+      [routerLink]="['/montage']"
+      class="cursor-pointer hover:text-[#f2dbbe] relative inline-block"
+    >
+      تسوق الآن
+    </p>
+    <a
+      href="tel:+201065798558"
+      class="cursor-pointer hover:text-[#f2dbbe] text-inherit no-underline"
+    >
+      <p>اتصل بنا</p>
+    </a>
+    <div class="hidden min-[950px]:block" [routerLink]="['/']">
+      <i class="fas fa-home text-2xl cursor-pointer"></i>
+    </div>
+  </div>
+
+  <!-- مربع البحث -->
+  <div class="hidden min-[950px]:block w-[250px]">
+    <input
+      [(ngModel)]="search"
+      (ngModelChange)="onSearchChange()"
+      (focus)="onSearchFocus()"
+      type="text"
+      placeholder="ابحث عن منتج"
+      class="bg-[#f7e9d3] text-[#372113] w-full h-10 rounded-lg px-4 text-right focus:outline-none focus:ring-2 focus:ring-[#f2dbbe] focus:bg-[#f2dbbe]"
+    />
+  </div>
+
+  <!-- لوجو -->
+  <div [routerLink]="['/']">
+    <img
+      src="./WhatsApp Image 2025-06-18 at 00.24.35_256b6888.jpg"
+      alt="Logo"
+      class="w-16 h-16 rounded-full cursor-pointer"
+    />
+  </div>
+</div>
+
+<div class="hidden max-[950px]:block h-0 overflow-hidden bg-[#372113]">
+  <div
+    class="fixed bottom-0 left-0 z-50 flex bg-[#372113] w-full h-20 text-[#f7e9d3] items-center justify-around px-4"
+  >
+    <div>
+      <div *ngIf="user; else userIcon" class="relative z-[70]" dir="rtl">
+        <!-- دائرة المسؤول -->
+        <div>
+          <div
+            (click)="toggleDropdown()"
+            class="w-10 h-10 rounded-full bg-[#a15d36] text-white flex items-center justify-center text-lg font-bold shadow-lg cursor-pointer relative"
+          >
+            {{ user?.name?.charAt(0) || "?" }}
+          </div>
+
+          <div *ngIf="user?.isAdmin">
+            <app-orders-notifier></app-orders-notifier>
+          </div>
+        </div>
+        <!-- القائمة المنسدلة -->
+        <div
+          *ngIf="dropdownOpen"
+          class="absolute z-50  -right-36 w-46 bottom-12 max-w-[90vw] bg-[#f3dfc4] rounded-2xl shadow-2xl p-2 border border-[#d9b99b]"
+          [ngClass]="{
+            '-mt-45': user?.isAdmin === false,
+            '-mt-95': user?.isAdmin === true
+          }"
+        >
+          <!-- بيانات المستخدم -->
+          <div
+            class="flex items-center gap-3 border-b border-[#d8b293] pb-4 mb-3"
+          >
+            <div
+              class="w-11 h-11 rounded-full bg-[#372113] text-[#f3dfc4] flex items-center justify-center text-lg font-bold shadow-md"
+            >
+              {{ user?.name?.charAt(0) || "?" }}
+            </div>
+            <div>
+              <div class="font-semibold text-[#372113] text-base">
+                {{ user?.name || "مستخدم" }}
+              </div>
+              <div class="text-sm text-[#6b4c3b]">{{ user?.phone || "" }}</div>
+            </div>
+          </div>
+
+          <!-- الروابط -->
+          <div
+            *ngIf="user?.isAdmin; else logoutOnly"
+            class="space-y-2 text-[15px] font-medium leading-6 mb-4"
+          >
+            <button
+              [routerLink]="['/all-orders']"
+              class="w-full bg-[#372113] text-[#f3dfc4] py-2 rounded-full hover:bg-[#8b4f2f] transition-colors duration-200 cursor-pointer"
+            >
+              الطلبات
+            </button>
+
+            <button
+              [routerLink]="['/clients']"
+              class="w-full bg-[#372113] text-[#f3dfc4] py-2 rounded-full hover:bg-[#8b4f2f] transition-colors duration-200 cursor-pointer"
+            >
+              العملاء
+            </button>
+
+            <button
+              [routerLink]="['/add-montage']"
+              class="w-full bg-[#372113] text-[#f3dfc4] py-2 rounded-full hover:bg-[#8b4f2f] transition-colors duration-200 cursor-pointer"
+            >
+              إضافة منتج جديد
+            </button>
+            <button
+              [routerLink]="['/delivery']"
+              class="w-full bg-[#372113] text-[#f3dfc4] py-2 rounded-full hover:bg-[#8b4f2f] transition-colors duration-200 cursor-pointer"
+            >
+              تغيير سعر الدليفري
+            </button>
+
+             <button
+              [routerLink]="['/order-statistics']"
+              class="w-full bg-[#372113] text-[#f3dfc4] py-2 rounded-full hover:bg-[#8b4f2f] transition"
+            >
+              تقارير الطلبات
+            </button>
+          </div>
+          <!-- تسجيل الخروج فقط للمستخدم العادي -->
+          <ng-template #logoutOnly>
+            <div class="space-y-2 text-[15px] font-medium leading-6"></div>
+          </ng-template>
+          <!-- تسجيل الخروج -->
+          <div class="">
+            <button
+              (click)="logout()"
+              class="w-full bg-[#d8b293] text-red-500 py-2 rounded-full hover:bg-[#a15d36] transition-colors duration-200 font-semibold cursor-pointer"
+            >
+              تسجيل الخروج
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #userIcon>
+        <i
+          class="fas fa-user text-2xl cursor-pointer hover:opacity-90 transition"
+          (click)="showLogin = true"
+        ></i>
+      </ng-template>
+    </div>
+
+    <div class="relative inline-block" [routerLink]="['/basket']">
+      <!-- الأيقونة -->
+      <i class="fas fa-shopping-cart text-2xl cursor-pointer"></i>
+
+      <!-- الدائرة اللي فيها الرقم -->
+      <span
+        class="absolute -top-2 -right-2 bg-[#a15d36] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full"
+      >
+        {{ basketCount }}
+      </span>
+    </div>
+
+    <!-- ✅ مربع البحث للموبايل -->
+    <div
+      *ngIf="showMobileSearch"
+      class="fixed top-0 left-0 w-full z-[999] bg-[#372113] px-4 py-5 flex items-center gap-2"
+    >
+      <input
+        [(ngModel)]="search"
+        (ngModelChange)="onSearchChange()"
+        (focus)="onSearchFocus()"
+        type="text"
+        placeholder="ابحث عن منتج"
+        class="flex-1 h-10 text-right px-4 rounded-lg bg-[#f7e9d3] text-[#372113] focus:outline-none w-[400px]"
+      />
+      <button
+        (click)="toggleMobileSearch()"
+        class="text-[#f7e9d3] text-xl font-bold"
+      >
+        ×
+      </button>
+    </div>
+
+    <i class="fas fa-search text-2xl" (click)="toggleMobileSearch()"></i>
+
+    <i class="fas fa-home text-2xl cursor-pointer" [routerLink]="['/']"></i>
+  </div>
+</div>
+
+<app-login *ngIf="showLogin" (close)="showLogin = false"></app-login>

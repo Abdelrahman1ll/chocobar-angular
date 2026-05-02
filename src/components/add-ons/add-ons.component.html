@@ -1,0 +1,120 @@
+<div class="mt-6">
+  <button
+    (click)="showForm = !showForm"
+    type="button"
+    class="bg-[#7a3e1d] hover:bg-[#5e2f16] text-white px-6 py-2 rounded-full mb-4 transition"
+  >
+    إضافة نوع الاضافات
+  </button>
+
+  <form
+    *ngIf="showForm"
+    [formGroup]="form"
+    class="mb-6 space-y-3 bg-[#fcebd5] p-4 rounded-2xl shadow-md max-w-xl w-full mx-auto"
+  >
+    <input
+      type="text"
+      placeholder="اسم الاضافات"
+      formControlName="name"
+      class="w-full p-2 border border-[#a15d36] rounded-lg bg-[#fff9f3] text-[#372113] placeholder:text-[#8c6d50] focus:outline-none focus:ring-2 focus:ring-[#a15d36]"
+    />
+    <button
+      type="button"
+      (click)="postAddOns()"
+      [disabled]="form.invalid"
+      class="bg-[#a15d36] hover:bg-[#8c4b2e] text-white px-5 py-2 rounded-full transition"
+    >
+      حفظ النوع
+    </button>
+  </form>
+
+  <div class="space-y-6 max-w-2xl w-full mx-auto">
+    <h3 class="text-[#5a3925] text-lg font-bold mb-2 text-center">
+      اختر الاضافه وأضف السعر:
+    </h3>
+
+    <div
+      *ngFor="let addOn of addOns"
+      class="flex flex-col justify-between sm:flex-row sm:items-center sm:gap-4 gap-2 bg-[#f7e5c9] p-4 rounded-xl shadow"
+    >
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <input
+            #chk
+            [checked]="selectedAddOns[addOn._id] !== undefined"
+            (change)="onToggleAddOn($event, addOn._id)"
+            type="checkbox"
+            class="accent-[#a15d36] w-5 h-5"
+          />
+          <label class="text-[#372113] font-medium">{{ addOn.name }}</label>
+        </div>
+        <input
+          #priceInput
+          type="number"
+          class="w-full sm:w-24 p-1 border rounded border-[#a15d36] bg-[#fff9f3] text-[#372113]"
+          placeholder="السعر"
+          [disabled]="selectedAddOns[addOn._id] === undefined"
+          [value]="selectedAddOns[addOn._id] || ''"
+          (input)="onPriceChange($event, addOn._id)"
+        />
+      </div>
+      <div>
+         <button
+          (click)="openEditModal(addOn)"
+          type="button"
+          class="bg-[#a15d36] hover:bg-[#8c4b2e] text-white px-3 py-1 rounded-full transition"
+        >
+          تعديل
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showUpdate">
+  <div class="fixed inset-0 bg-black/30 z-40"></div>
+  <form
+    dir="rtl"
+    [formGroup]="editForm"
+    (ngSubmit)="updateAddOn()"
+    class="fixed inset-0 flex items-center justify-center z-50"
+  >
+    <div
+      class="bg-[#f3dfc4] rounded-2xl shadow-xl p-6 w-[90%] max-w-md space-y-4 relative text-right"
+    >
+      <button
+        (click)="closeEditModal()"
+        class="absolute top-2 right-4 text-[#3b2415] text-2xl font-bold hover:text-red-600 transition"
+      >
+        &times;
+      </button>
+
+      <h2 class="text-2xl font-bold text-[#3b2415] text-center">
+        تعديل نوع الاضافات
+      </h2>
+
+      <ng-container>
+        <!-- الاسم -->
+        <input
+          type="text"
+          placeholder="الاسم"
+          formControlName="name"
+          class="w-full p-2 rounded outline-none border"
+        />
+        <div
+          *ngIf="editForm.get('name')?.invalid && editForm.get('name')?.touched"
+          class="text-red-500 text-sm -mt-1"
+        >
+          الاسم مطلوب
+        </div>
+
+        <button
+          type="submit"
+          class="bg-[#3b2415] text-[#f3dfc4] px-4 py-2 rounded w-full hover:opacity-90 transition flex items-center justify-center"
+        >
+          تعديل نوع الاضافات
+        </button>
+      </ng-container>
+    </div>
+  </form>
+</div>

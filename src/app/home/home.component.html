@@ -1,0 +1,39 @@
+<app-header></app-header>
+
+
+<div
+  class="relative w-full h-154 overflow-hidden banner-container flex justify-start items-center"
+>
+  <img
+    src="./Gemini_Generated_Image_s04jcns04jcns04j.jpeg"
+    alt="Banner"
+    class="absolute top-0 left-0 w-full h-154 z-0"
+  />
+
+  <!-- المحتوى فوق الصورة -->
+  <div class="relative z-10 text-center px-4 max-w-full ml-20 max-[600px]:ml-2">
+    <h1 class="text-2xl sm:text-2xl md:text-4xl font-bold text-[#372113]">
+      أهلاً بك في شوكوبار
+    </h1>
+    <p class="mt-3 text-sm sm:text-base md:text-lg text-[#372113]">
+      شوكولاتك على مزاجك
+    </p>
+    <a [routerLink]="['/montage']">
+      <button
+        class="group mt-6 max-[600px]:mt-2 bg-[#372113] text-[#f2dbbe] px-6 md:px-8 py-2 rounded-full hover:bg-[#372113] hover:text-[#f2dbbe] transition duration-300 flex items-center justify-center gap-2 mx-auto max-[600px]:px-4"
+      >
+        <span
+          class="transition-all duration-300 group-hover:text-lg group-hover:scale-105"
+        >
+          تسوق الآن
+        </span>
+        <span
+          class="text-xl transition-transform duration-300 group-hover:translate-x-2"
+          >&#8594;</span
+        >
+      </button>
+    </a>
+  </div>
+</div>
+
+<app-footer></app-footer>

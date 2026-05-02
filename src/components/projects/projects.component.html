@@ -1,0 +1,70 @@
+
+<div  class="mb-4">
+  <div class="space-y-4">
+    <!-- منتج فردي -->
+    <div
+      class="bg-[#d6b584] rounded-2xl shadow-md p-5 flex flex-col md:flex-row items-center gap-6 w-full max-w-2xl mx-auto transition hover:shadow-xl"
+    >
+      <!-- صورة المنتج -->
+      <div class="w-24 h-24 shrink-0">
+        <img
+          [src]="item?.Project?.image"
+          alt="صورة المنتج"
+          class="w-full h-full object-cover rounded-xl"
+        />
+      </div>
+
+      <!-- تفاصيل المنتج -->
+      <div class="flex-1 w-full text-[#3b2415] space-y-3">
+        <h3 class="text-xl font-bold leading-snug">
+          {{ item?.Project?.name }}
+        </h3>
+
+        <!-- السعر والكمية -->
+        <div
+          class="flex flex-wrap justify-between gap-6 text-sm font-medium"
+        >
+          <div>
+            <span>السعر:</span>
+            <span class="text-[#372113]/90">{{ item?.price }} جنيه</span>
+          </div>
+          <div>
+            <span>الكمية:</span>
+            <span class="text-[#372113]/90">{{ item?.quantity }}</span>
+          </div>
+        </div>
+
+        <!-- تفاصيل الشوكولاتة والإضافات -->
+        <div class="text-sm space-y-3 bg-[#e7caa3] p-4 rounded-xl">
+          <!-- شوكولاتات -->
+          <div>
+            <span class="font-medium block mb-1">الشوكولاتات:</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div
+                *ngFor="let choco of item?.chocolates?.slice(0, 4)"
+                class="flex justify-between bg-[#d9b892] rounded-md px-3 py-1"
+              >
+                <span>{{ choco?.chocolate.name }}</span>
+                <span>{{ choco?.price }} جنيه</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- الإضافات -->
+          <div>
+            <span class="font-medium block mb-1">الإضافات:</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div
+                *ngFor="let add of item?.addOns?.slice(0, 4)"
+                class="flex justify-between bg-[#d9b892] rounded-md px-3 py-1"
+              >
+                <span>{{ add?.addOn?.name }}</span>
+                <span>{{ add?.price }} جنيه</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

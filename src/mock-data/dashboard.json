@@ -1,0 +1,14 @@
+{
+  "totalSales": 15000,
+  "totalOrders": 120,
+  "totalClients": 85,
+  "topProducts": [
+    { "name": "مولتن كيك", "sales": 45 },
+    { "name": "وافل نوتيلا", "sales": 38 },
+    { "name": "طاجن نوتيلا", "sales": 32 }
+  ],
+  "recentOrders": [
+    { "id": "o1", "user": "أحمد محمد", "amount": 450, "status": "pending" },
+    { "id": "o2", "user": "سارة علي", "amount": 250, "status": "completed" }
+  ]
+}

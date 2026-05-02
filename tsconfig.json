@@ -1,0 +1,41 @@
+/*
+ * =========================================================================
+ * CHANGE LOG: tsconfig.json
+ * =========================================================================
+ * WHY: Added "resolveJsonModule" to allow direct importing of JSON mock 
+ * data files into TypeScript components for the new mock system.
+ * لماذا: تم إضافة "resolveJsonModule" للسماح باستيراد ملفات البيانات 
+ * الوهمية (JSON) مباشرة داخل مكونات التايب سكريبت لنظام المحاكاة الجديد.
+ * -------------------------------------------------------------------------
+ * OLD CODE:
+ * "module": "ES2022" (without resolveJsonModule)
+ * =========================================================================
+ */
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "resolveJsonModule": true
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

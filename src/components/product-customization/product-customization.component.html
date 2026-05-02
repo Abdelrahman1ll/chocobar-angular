@@ -1,0 +1,94 @@
+<app-toast-message
+  *ngIf="showToast"
+  [message]="toastMessage"
+  [type]="toastType"
+  [duration]="3000"
+  (closed)="showToast = false"
+/>
+
+
+
+<!-- Overlay -->
+<div class="fixed inset-0 z-50 bg-black/30 flex items-center justify-center px-4">
+
+  <!-- المرحلة الأولى: اختيار النوع -->
+  <div  *ngIf="step === 'type' && (TwoKindsOfChocolate || FourTypesOfChocolate)" class="bg-[#f3dfc4] text-[#372113] w-full max-w-md rounded-3xl shadow-xl p-6 space-y-6 relative">
+    <!-- زر الإغلاق -->
+    <button
+      (click)="emitClose()"
+      class="absolute top-4 right-4 text-[#a15d36] hover:text-red-600 transition text-3xl"
+      aria-label="إغلاق"
+    >
+      &times;
+    </button>
+
+    <!-- العنوان -->
+    <h2 class="text-2xl font-bold text-[#4b2e19] text-center">اختر عدد أنواع الشوكولاتة</h2>
+
+    <!-- الأزرار -->
+    <div class="flex flex-col space-y-4 mt-6">
+      <button *ngIf="TwoKindsOfChocolate === true || FourTypesOfChocolate === true" (click)="selectOption('one')" [ngClass]="optionClass('one')" class="p-3 rounded-xl shadow font-medium">كلاسيك (نوع واحد)</button>
+      <button *ngIf="TwoKindsOfChocolate === true" (click)="selectOption('two')" [ngClass]="optionClass('two')" class="p-3 rounded-xl shadow font-medium">نص ونص (نوعين)</button>
+      <button *ngIf="FourTypesOfChocolate === true" (click)="selectOption('four')" [ngClass]="optionClass('four')" class="p-3 rounded-xl shadow font-medium">فور سيزون (أربع نكهات)</button>
+    </div>
+  </div>
+
+  <!-- المرحلة الثانية: تخصيص المنتج -->
+  <div *ngIf="step === 'custom'" class="relative bg-[#f3dfc4] text-[#4b2e19] p-6 rounded-2xl shadow-xl space-y-6 w-full max-w-3xl mx-auto m-4 max-h-[90vh] overflow-y-auto" dir="rtl">
+    <!-- زر الإغلاق -->
+    <button (click)="emitClose()" class="absolute top-2 right-4 text-[#a15d36] hover:text-red-600 transition text-3xl" aria-label="إغلاق">
+      &times;
+    </button>
+<div *ngIf="chocolates?.length !== 0">
+    <h2 class="text-2xl font-bold text-right mb-2 mt-6">اختر الشوكولاتة</h2>
+
+    <!-- أنواع الشوكولاتة -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div *ngFor="let choco of chocolates" (click)="toggleChocolate(choco)"
+        [ngClass]="{
+          'bg-[#a15d36] text-white border-[#a15d36]': selectedChocolates.includes(choco),
+          'bg-white text-[#4b2e19] border-[#a15d36] hover:bg-[#f3e2d4]': !selectedChocolates.includes(choco)
+        }"
+        class="p-4 border-2 rounded-xl cursor-pointer transition duration-200">
+        <p class="font-bold">{{ choco.name }}</p>
+        <p class="text-sm">{{ choco.price }} ج.م</p>
+      </div>
+    </div>
+</div>
+    <p *ngIf="chocolateError" class="text-red-600 text-sm text-center">
+      يجب اختيار {{ getAllowedChocolateCount() }} نوع شوكولاتة بالضبط.
+    </p>
+<div *ngIf="addOns?.length !== 0">
+    <h3 class="text-xl font-semibold mt-6 text-right mb-2">اختر الإضافات</h3>
+
+    <!-- الإضافات -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div *ngFor="let addon of addOns" (click)="toggleAddOn(addon)"
+        [ngClass]="{
+          'bg-[#a15d36] text-white border-[#a15d36]': selectedAddOns.includes(addon),
+          'bg-white text-[#4b2e19] border-[#a15d36] hover:bg-[#f3e2d4]': !selectedAddOns.includes(addon)
+        }"
+        class="p-4 border-2 rounded-xl cursor-pointer transition duration-200">
+        <p class="font-bold">{{ addon.name }}</p>
+        <p class="text-sm">{{ addon.price }} ج.م</p>
+      </div>
+    </div>
+</div>
+    <!-- عدد القطع -->
+    <div class="mt-6">
+      <label class="block mb-2 font-semibold text-right">عدد القطع</label>
+      <input type="number" [(ngModel)]="quantity" min="1"
+        class="w-full p-2 rounded-lg border-2 border-[#a15d36] focus:outline-none focus:border-[#4b2e19]" />
+    </div>
+
+    <div class="text-xl font-bold text-center mt-6">
+      السعر الإجمالي: {{ calculateTotal() }} ج.م
+    </div>
+
+    <button (click)="submit()"
+      class="mt-4 w-full py-3 rounded-xl bg-[#4b2e19] text-white font-bold hover:bg-[#a15d36] transition">
+      اضف للسلة
+    </button>
+  </div>
+  
+</div>

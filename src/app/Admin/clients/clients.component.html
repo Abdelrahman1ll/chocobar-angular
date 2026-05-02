@@ -1,0 +1,56 @@
+<app-header></app-header>
+
+<app-back></app-back>
+<div
+  *ngIf="!isLoading && Clients.length === 0"
+  class="flex justify-center items-center min-h-[50vh]"
+>
+  <p class="text-xl font-bold text-[#a15d36]">لا يوجد عملاء حالياً</p>
+</div>
+
+<div>
+  <h1 class="text-3xl text-center font-extrabold">العملاء</h1>
+</div>
+
+<div class="flex justify-center p-4">
+  <button
+    (click)="downloadPDF()"
+    class="bg-[#372113] hover:bg-[#4b2e19] text-[#f2dbbe] font-semibold py-2 px-4 rounded-lg shadow-md transition cursor-pointer"
+  >
+    <ng-container *ngIf="!loading">Download</ng-container>
+
+    <ng-container *ngIf="loading">
+      <div
+        class="h-5 w-5 border-2 border-[#f2dbbe] border-t-transparent rounded-full animate-spin"
+      ></div>
+    </ng-container>
+  </button>
+</div>
+
+<div *ngIf="isLoading" class="flex justify-center items-center min-h-screen">
+  <div
+    class="w-16 h-16 border-4 border-[#a15d36] border-t-transparent rounded-full animate-spin"
+  ></div>
+</div>
+
+<!-- شبكة تقسيم العملاء على عمودين -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 max-w-5xl mx-auto my-8">
+  <!-- كارت عميل 1 -->
+  <div
+    *ngFor="let client of Clients"
+    dir="rtl"
+    class="bg-[#f3dfc4] text-[#372113] rounded-xl shadow-md p-4 w-full flex items-center gap-4 hover:shadow-lg transition"
+  >
+    <div
+      class="w-12 h-12 rounded-full bg-[#a15d36] text-white flex items-center justify-center text-lg font-bold"
+    >
+      أ
+    </div>
+    <div class="flex flex-col">
+      <p class="font-semibold text-base">{{ client.name }}</p>
+      <p class="text-sm text-[#5a3925]">{{ client.phone }}</p>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

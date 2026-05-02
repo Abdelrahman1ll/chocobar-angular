@@ -1,0 +1,87 @@
+<app-header></app-header>
+<app-back></app-back>
+<div>
+  <h2 class="text-2xl font-bold text-center text-[#372113] my-6">
+    سلة المشتريات
+  </h2>
+
+  <div class="max-w-2xl mx-auto">
+    <p class="text-sm text-[#372113]/80 mb-4 text-center">
+      تسوق الآن للحصول على أفضل الشوكولاتة
+    </p>
+  </div>
+</div>
+
+<div>
+  <div
+    *ngFor="let bas of basket"
+    dir="rtl"
+    class="bg-[#f3dfc4] rounded-2xl shadow-md p-5 flex flex-col md:flex-row items-center gap-6 w-full max-w-2xl mx-auto my-6 transition hover:shadow-xl"
+  >
+    <!-- صورة المنتج -->
+    <div class="w-24 h-24 shrink-0">
+      <img
+        [src]="bas.Project.image"
+        alt="صورة المنتج"
+        class="w-full h-full object-cover rounded-xl"
+      />
+    </div>
+
+    <!-- تفاصيل المنتج -->
+    <div class="flex-1 w-full text-[#3b2415] space-y-3">
+      <!-- اسم المنتج -->
+      <h3 class="text-xl font-bold leading-snug">{{ bas.Project.title }}</h3>
+
+      <!-- السعر والكمية -->
+      <div class="flex flex-wrap justify-between gap-6 text-sm font-medium">
+        <div>
+          <span>السعر: </span>
+          <span class="text-[#372113]/90">{{ bas.price }}.00 جنيه</span>
+        </div>
+        <div>
+          <span>الكمية: </span>
+          <span class="text-[#372113]/90">{{ bas.quantity }}</span>
+        </div>
+      </div>
+
+      <!-- اختيارات العميل -->
+      <div class="text-sm space-y-2 bg-[#efd8b5] p-3 rounded-xl">
+        <div
+          *ngFor="let choc of bas.chocolates"
+          class="flex items-center text-[#efd8b5] justify-between bg-[#5a3622] p-2 required:bg-[#372113] rounded-xl"
+        >
+          <span class="font-medium">شوكولاتة:</span>
+          <span class="font-semibold">{{ choc.chocolate.name }}</span>
+        </div>
+        <div
+          *ngFor="let add of bas.addOns"
+          class="flex items-center text-[#efd8b5] justify-between bg-[#5a3622] p-2 required:bg-[#372113] rounded-xl"
+        >
+          <span class="font-medium">الإضافات:</span>
+          <span class="font-semibold">{{ add.addOn?.name }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- زر الحذف -->
+    <button
+      type="button"
+      (click)="deleteBasket(bas._id)"
+      class="text-red-600 hover:text-white hover:bg-red-600 font-semibold text-sm px-4 py-1.5 rounded-full transition duration-200"
+    >
+      حذف
+    </button>
+  </div>
+</div>
+
+<div class="mt-6 px-10 max-w-3xl mx-auto mb-20">
+  <button
+    (click)="goToPayment()"
+    type="button"
+    class="w-full bg-[#372113] text-[#f2dbbe] py-3 text-lg rounded-full hover:bg-[#4b2e19] transition duration-300 shadow-md hover:shadow-lg font-semibold"
+  >
+    صفحة الدفع
+  </button>
+</div>
+
+<app-footer></app-footer>

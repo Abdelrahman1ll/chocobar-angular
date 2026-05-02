@@ -1,0 +1,12 @@
+{
+  "status": "success",
+  "basket": {
+    "_id": "b1",
+    "Projects": [],
+    "user": "u1",
+    "totalBasketPrice": 0,
+    "createdAt": "2026-05-01T12:00:00Z",
+    "updatedAt": "2026-05-01T12:00:00Z",
+    "__v": 0
+  }
+}

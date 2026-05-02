@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Build 🏗️
-        run: npm run build -- --base-href /Chocobar/
+        run: npm run build -- --base-href /chocobar-angular/
 
       - name: Fix SPA Routing (404.html) 🔄
         run: cp dist/ag/browser/index.html dist/ag/browser/404.html
